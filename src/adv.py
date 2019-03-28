@@ -46,40 +46,84 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-player = Player('Player', room['outside'], [])
+player = Player(room['outside'], [])
 
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
-current_room = player.current_room
-room_name = player.current_room.name
-room_description = player.current_room.description
-room_items = room.items
+# current_room = player.current_room
+# room_name = player.current_room.name
+# room_description = player.current_room.description
+# room_items = room.items
 
-while True:
-    print(textwrap.fill(f'Location: {room_name}'))
-    print(f'{room_description}')
-    print(f'{room_items}')
-    print('Please choose a direction')
-    direction = input('\n[n] North [s] South [e] East [w] West:')
 
-    if direction == 'n':
-        current_room = current_room.n_to
-    elif direction == 's':
-        current_room = current_room.s_to
-    elif direction == 'e':
-        current_room = current_room.e_to
-    elif direction == 'w':
-        current_room == current_room.w_to
-    elif direction == 'q':
-        print('Goodbye!')
-        break
+def try_direction(direction, current_room):
+    attribute = direction + '_to'
+
+    if hasattr(current_room, attribute):
+        return getattr(current_room, attribute)
     else:
         print("You can't move in that direction!")
+        return current_room
+
+    # Write a loop that:
+    #
+    # * Prints the current room name
+    # * Prints the current description (the textwrap module might be useful here).
+    # * Waits for user input and decides what to do.
+    #
+    # If the user enters a cardinal direction, attempt to move to the room there.
+    # Print an error message if the movement isn't allowed.
+    #
+    # If the user enters "q", quit the game.
+
+
+print('Type [h] or help for additional information.')
+while True:
+    print(player.current_room.name)
+    print(player.current_room.description)
+    s = input("\n>").lower().split()
+
+    print(s)
+
+    if len(s) == 1:
+        # direction
+        s = s[0][0]
+
+        if s == 'q':
+            print("Goodbye!")
+            break
+        elif s == 'h':
+            print("Directions: [n] North, [s] South, [e] East, [w] West")
+            print('To pickup an item, try take followed by the items name (ex. take dagger). Or to drop, drop followed by the item name (ex. drop dagger).')
+
+        player.current_room = try_direction(s, player.current_room)
+
+    elif len(s) == 2:
+        # two word command
+        first_word = s[0]
+        second_word = s[1]
+
+        # if first_word in ['take', 'drop']:
+
+    else:
+        print("Please give a valid response")
+        continue
+
+        # print(textwrap.fill(f'Location: {room_name}'))
+        # print(f'{room_description}')
+        # print(f'{room_items}')
+        # print('Please choose a direction')
+        # direction = input('\n[n] North [s] South [e] East [w] West:')
+
+        # while True:
+        #     if direction == 'n':
+        #         player.current_room = player.current_room.n_to
+        #     elif direction == 's':
+        #         player.current_room = player.current_room.s_to
+        #     elif direction == 'e':
+        #         cplayer.current_room = player.current_room.e_to
+        #     elif direction == 'w':
+        #         player.current_room = player.current_room.w_to
+        #     elif direction == 'q':
+        #         print('Goodbye!')
+        #         break
+        #     else:
+        #         print("You can't move in that direction!")
