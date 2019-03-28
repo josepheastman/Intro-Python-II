@@ -46,7 +46,19 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+room['outside'].items.append(
+    Item("lamp", "This looks like it could be used to see things in the dark."))
+
+room['outside'].items.append(
+    Item("shield", "This looks like it could be used to provide some protection."))
+
+room['treasure'].items.append(
+    Item("chest", "It's completely empty")
+)
+
 player = Player(room['outside'], [])
+
+player.inventory.append(Item("sword", "A rusty old sword"))
 
 # current_room = player.current_room
 # room_name = player.current_room.name
@@ -79,12 +91,14 @@ print('Type [h] or help for additional information.')
 while True:
     print(player.current_room.name)
     print(player.current_room.description)
+    for item in player.current_room.items:
+        print(f"Items in room: {item.name}")
     s = input("\n>").lower().split()
 
     print(s)
 
     if len(s) == 1:
-        # direction
+        # direction, quit, help, inventory
         s = s[0][0]
 
         if s == 'q':
@@ -92,16 +106,49 @@ while True:
             break
         elif s == 'h':
             print("Directions: [n] North, [s] South, [e] East, [w] West")
+            print("[i] or Inventory to access your inventory.")
+            print("To check an items description put desc followed by the items name (ex. desc sword). You may only check the description of items in your inventory.")
             print('To pickup an item, try take followed by the items name (ex. take dagger). Or to drop, drop followed by the item name (ex. drop dagger).')
+        elif s == 'i':
+            if len(player.inventory) > 0:
+                for item in player.inventory:
+                    print(f"Inventory: {item.name}")
+            else:
+                print("You have no items")
 
         player.current_room = try_direction(s, player.current_room)
 
     elif len(s) == 2:
-        # two word command
+        # two word command, take, drop
+        # if first_word in ['take', 'drop']:
         first_word = s[0]
         second_word = s[1]
 
-        # if first_word in ['take', 'drop']:
+        if first_word == 'take':
+            if len(player.current_room.items) > 0:
+                for item in player.current_room.items:
+                    if second_word == item.name:
+                        player.inventory.append(item)
+                        player.current_room.items.remove(item)
+                        print(f"You take the {item.name}")
+                    else:
+                        print("Item does not exist.")
+        elif first_word == 'drop':
+            if len(player.inventory) > 0:
+                for item in player.inventory:
+                    if second_word == item.name:
+                        player.current_room.items.append(item)
+                        player.inventory.remove(item)
+                        print(f"You drop the {item.name}")
+                    else:
+                        print("Item does not exist.")
+        elif first_word == 'desc':
+            if len(player.inventory) > 0:
+                for item in player.inventory:
+                    if second_word == item.name:
+                        print(f"Item description: {item.description}")
+                    else:
+                        print("Item does not exist")
 
     else:
         print("Please give a valid response")
