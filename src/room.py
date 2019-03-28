@@ -3,10 +3,11 @@
 
 
 class Room:
-    def __init__(self, name, description, items):
+    def __init__(self, name, description, items, monsters):
         self.name = name
         self.description = description
         self.items = []
+        self.monsters = []
 
     def __repr__(self):
         return f"{self.name}, {self.description}"
