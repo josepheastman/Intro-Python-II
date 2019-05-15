@@ -1,5 +1,7 @@
 
 from room import Room
+from player import Player
+import textwrap
 
 # Declare all the rooms
 
@@ -39,6 +41,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+player = Player(room['outside'])
 
 # Write a loop that:
 #
@@ -50,3 +53,24 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+def move_direction(direction, current_room):
+    attribute = direction + '_to'
+
+    if hasattr(current_room, attribute):
+        return getattr(current_room, attribute)
+    else:
+        print("You can't move in that direction!")
+        return current_room
+
+
+while True:
+    print(player.current_room.name)
+    print(player.current_room.description)
+    s = input("\n>").lower().split()
+
+    if len(s) == 1:
+        s = s[0][0]
+
+    player.current_room = move_direction(s, player.current_room)
