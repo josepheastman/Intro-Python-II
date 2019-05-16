@@ -71,10 +71,29 @@ def move_direction(direction, current_room):
 while True:
     print(player.current_room.name)
     print(player.current_room.description)
-    print(player.current_room.items)
-    s = input("\n>").lower().split()
+    for item in player.current_room.items:
+        print(f"Items in room: {item.name}")
+    d = input("\n>").lower().split()
 
-    if len(s) == 1:
-        s = s[0][0]
+    if len(d) == 1:
+        d = d[0][0]
+        player.current_room = move_direction(d, player.current_room)
 
-    player.current_room = move_direction(s, player.current_room)
+        if d == 'q':
+            print("Goodbye!")
+            break
+        elif d == 'i':
+            if len(player.inv) > 0:
+                for item in player.inv:
+                    print(f"Inventory: {item.name}")
+
+    elif len(d) == 2:
+        if d[0] == 'take':
+            if len(player.current_room.items) > 0:
+                for item in player.current_room.items:
+                    if d[1] == item.name:
+                        player.inv.append(item)
+                        player.current_room.items.remove(item)
+                        print(f"You pick up the {item.name}")
+                    else:
+                        print("There is no item with that name.")
