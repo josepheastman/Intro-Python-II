@@ -8,7 +8,7 @@ import textwrap
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons", [Item("sword", "This sword has a blade of a copper color."), Item("lantern", "it shines brightly")]),
+                     "North of you, the cave mount beckons", [Item("sword", "This sword has a blade of a copper color."), Item("lantern", "It shines brightly.")]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east.""", [Item("helm", "This looks like it could provide some protection for your head.")]),
@@ -84,7 +84,7 @@ while True:
         if d == 'q':
             print("Goodbye!")
             break
-        elif d == 'i':
+        elif d == 'i' or d == 'inventory':
             if len(player.inv) > 0:
                 print(f'Inventory: {player.inv}')
 
