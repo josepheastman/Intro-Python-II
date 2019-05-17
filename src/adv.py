@@ -8,7 +8,7 @@ import textwrap
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons", []),
+                     "North of you, the cave mount beckons", [Item("sword", "This sword has a blade of a copper color."), Item("lantern", "it shines brightly")]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east.""", []),
@@ -40,8 +40,8 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
-room['outside'].items.append(
-    Item("sword", "This sword has a blade of a copper color, styled to resemble a fang. The guard is a pair of bird wings."))
+# room['outside'].items.append(
+#     Item("sword", "This sword has a blade of a copper color, styled to resemble a fang. The guard is a pair of bird wings."))
 
 # Make a new player object that is currently in the 'outside' room.
 player = Player(room['outside'], [])
@@ -71,8 +71,10 @@ def move_direction(direction, current_room):
 while True:
     print(player.current_room.name)
     print(player.current_room.description)
-    for item in player.current_room.items:
-        print(f"Items in room: {item.name}")
+    if player.current_room.items != []:
+        print(f'In the room you see: {player.current_room.items}')
+    elif player.current_room.items == []:
+        print("You see no items of interest here.")
     d = input("\n>").lower().split()
 
     if len(d) == 1:
@@ -84,8 +86,7 @@ while True:
             break
         elif d == 'i':
             if len(player.inv) > 0:
-                for item in player.inv:
-                    print(f"Inventory: {item.name}")
+                print(f'Inventory: {player.inv}')
 
     elif len(d) == 2:
         if d[0] == 'take':
@@ -97,3 +98,11 @@ while True:
                         print(f"You pick up the {item.name}")
                     else:
                         print("There is no item with that name.")
+        elif d[0] == 'drop':
+            if len(player.inv) > 0:
+                for item in player.inv:
+                    if d[1] == item.name:
+                        player.current_room.items.append(item)
+                        player.inv.remove(item)
+                        print(
+                            f'You remove the {item.name} from your inventory and place it back in the room.')
