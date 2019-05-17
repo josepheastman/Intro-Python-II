@@ -8,29 +8,29 @@ import textwrap
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons", [Item("sword", "This sword has a blade of a copper color."), Item("lantern", "It shines brightly.")]),
+                     "North of you, the cave mount beckons", [Item("sword", "A razor sharp sword."), Item("lantern", "It shines brightly.")]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", [Item("helm", "This looks like it could provide some protection for your head.")]),
+passages run north and east.""", [Item("helm", "A full face helmet.")]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""", []),
+the distance, but there is no way across the chasm.""", [Item("lobster", "This looks tricky to eat.")]),
 
     'cathedral':   Room("Noble's District", """Four pillars once held the ceiling aloft, here. 
 Three yet stand, but one has fallen scattering rubble about the area..
-You see a path to the west and to the north.""", []),
+You see a path to the west and to the north.""", [Item("platebody", "Provides excellent protection.")]),
 
     'tower':   Room("Tower District", """A jagged, one-foot crack runs across this chamber’s floor. 
 Beyond, two archways lead into narrow corridors.
-You see a path to the south and to the east.""", []),
+You see a path to the south and to the east.""", [Item("book", "The magical book of the Mage.")]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", []),
+to north. The smell of gold permeates the air.""", [Item("shield", "A large metal shield.")]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", []),
+earlier adventurers. The only exit is to the south.""", [Item("chest", "I wonder what's inside.")]),
 }
 
 
