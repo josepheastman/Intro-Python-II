@@ -11,7 +11,7 @@ room = {
                      "North of you, the cave mount beckons", [Item("sword", "This sword has a blade of a copper color."), Item("lantern", "it shines brightly")]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", []),
+passages run north and east.""", [Item("helm", "This looks like it could provide some protection for your head.")]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
@@ -89,7 +89,7 @@ while True:
                 print(f'Inventory: {player.inv}')
 
     elif len(d) == 2:
-        if d[0] == 'take':
+        if d[0] == 'take' or d[0] == 'get':
             if len(player.current_room.items) > 0:
                 for item in player.current_room.items:
                     if d[1] == item.name:
