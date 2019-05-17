@@ -95,7 +95,7 @@ while True:
                     if d[1] == item.name:
                         player.inv.append(item)
                         player.current_room.items.remove(item)
-                        print(f"You pick up the {item.name}")
+                        item.on_take()
                     else:
                         print("There is no item with that name.")
         elif d[0] == 'drop':
@@ -104,5 +104,4 @@ while True:
                     if d[1] == item.name:
                         player.current_room.items.append(item)
                         player.inv.remove(item)
-                        print(
-                            f'You remove the {item.name} from your inventory and place it back in the room.')
+                        item.on_drop()
