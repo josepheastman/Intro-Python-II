@@ -17,6 +17,14 @@ passages run north and east.""", [Item("helm", "This looks like it could provide
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm.""", []),
 
+    'cathedral':   Room("Noble's District", """Four pillars once held the ceiling aloft, here. 
+Three yet stand, but one has fallen scattering rubble about the area..
+You see a path to the west and to the north.""", []),
+
+    'tower':   Room("Tower District", """A jagged, one-foot crack runs across this chamber’s floor. 
+Beyond, two archways lead into narrow corridors.
+You see a path to the south and to the east.""", []),
+
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
 to north. The smell of gold permeates the air.""", []),
 
@@ -31,9 +39,13 @@ earlier adventurers. The only exit is to the south.""", []),
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
+room['foyer'].e_to = room['cathedral']
+room['cathedral'].w_to = room['foyer']
+room['cathedral'].n_to = room['tower']
 room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
+room['tower'].s_to = room['cathedral']
+room['tower'].e_to = room['narrow']
+room['narrow'].w_to = room['tower']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
